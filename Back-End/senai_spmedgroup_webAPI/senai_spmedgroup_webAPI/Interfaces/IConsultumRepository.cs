@@ -9,50 +9,48 @@ namespace senai_spmedgroup_webAPI.Interfaces
     interface IConsultumRepository
     {
         /// <summary>
-        /// Retorna todos os objetos cadastrados
+        /// Lista de todos os objetos cadastrados
         /// </summary>
         /// <returns>Uma lista de objetos</returns>
         List<Consultum> ListarTodos();
 
         /// <summary>
-        /// Cadastra uma nova consulta
+        /// Lista de todos os objetos cadastrados com o id do médico
         /// </summary>
-        /// <param name="novaConsulta">Objeto novaConsultum com as informações</param>
-        void Cadastrar(Consultum novaConsulta);
+        /// <param name="id">Id médico</param>
+        /// <returns>Uma lista de consultas</returns>
+        List<Consultum> ListarPorMed(int id);
 
         /// <summary>
-        /// Atualiza os dados da consulta existente (cancelamento e descrição)
+        /// Lista de todos os objetos cadastrados com o id do paciente
         /// </summary>
-        /// <param name="idConsulta">ID da consulta que será atualizada</param>
-        /// <param name="consultaAtualizada">objeto consultaAtualizada com as novas informações</param>
-        void Atualizar(int idConsulta, Consultum consultaAtualizada);
+        /// <param name="id">Id paciente</param>
+        /// <returns>Lista de consultas</returns>
+        List<Consultum> ListarPorPac(int id);
 
         /// <summary>
-        /// Atualiza os dados da consulta existente (cancelamento e descrição)
+        /// Busca um objeto com seu respectivo ID
         /// </summary>
-        /// <param name="idConsulta">ID da consulta que será atualizada</param>
-        /// <param name="consultaAtualizada">objeto consultaAtualizada com as novas informações</param>
-        void AtualizarDescricao(int idConsulta, Consultum consultaAtualizada);
+        /// <param name="id">ID do objeto</param>
+        /// <returns>Retorna um objeto conforme seu ID</returns>
+        Consultum BuscarPorId(int id);
 
         /// <summary>
-        /// Busca uma consulta através do seu ID
+        /// Deleta um objeto com seu respectivo ID
         /// </summary>
-        /// <param name="idConsulta">ID da consulta que será buscada</param>
-        /// <returns>Uma consulta encontrada</returns>
-        Consultum BuscarPorId(int idConsulta);
+        /// <param name="id">ID do objeto</param>
+        void Deletar(int id);
 
         /// <summary>
-        /// Busca uma consulta do médico
+        /// Atualiza um objeto com seu respectivo ID
         /// </summary>
-        /// <param name="idConsulta">ID do médico que será buscado</param>
-        /// <returns>Consulta encontrada</returns>
-        Consultum BuscarConsultaMed(int idMedico);
+        /// <param name="objAtualizado">Objeto atualizado</param>
+        void Atualizar(int id, Consultum objAtualizado);
 
         /// <summary>
-        /// Busca uma consulta de pacinete
+        /// Cadastra um novo objeto
         /// </summary>
-        /// <param name="idConsulta">ID do paciente que será buscado</param>
-        /// <returns>Consulta encontrada</returns>
-        Consultum BuscarConsultaPac(int idPaciente);
+        /// <param name="objAtualizdo">Novo objeto</param>
+        void Cadastrar(Consultum objAtualizado);
     }
 }

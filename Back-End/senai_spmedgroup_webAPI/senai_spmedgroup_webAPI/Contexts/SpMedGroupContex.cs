@@ -7,13 +7,13 @@ using senai_spmedgroup_webAPI.Domains;
 
 namespace senai_spmedgroup_webAPI.Contexts
 {
-    public partial class SpMedGroupContex : DbContext
+    public partial class SpMedGroupContext : DbContext
     {
-        public SpMedGroupContex()
+        public SpMedGroupContext()
         {
         }
 
-        public SpMedGroupContex(DbContextOptions<SpMedGroupContex> options)
+        public SpMedGroupContext(DbContextOptions<SpMedGroupContext> options)
             : base(options)
         {
         }

@@ -10,41 +10,44 @@ namespace senai_spmedgroup_webAPI.Repositories
 {
     public class ClinicaRepository : IClinicaRepository
     {
-        SpMedGroupContex ctx = new SpMedGroupContex();
-        public void Atualizar(int idClinica, Clinica clinicaAtualizada)
+        SpMedGroupContext ctx = new SpMedGroupContext();
+        public void Atualizar(int id, Clinica objAtualizado)
         {
-            Clinica clinicaBuscada = BuscarPorId(idClinica);
-            if (clinicaAtualizada.NomeFantasiaClinica != null)
+            Clinica objBuscado = ctx.Clinicas.FirstOrDefault(u => u.IdClinica == id);
+
+            if (objBuscado.NomeFantasiaClinica != null)
             {
-                clinicaBuscada.NomeFantasiaClinica = clinicaAtualizada.NomeFantasiaClinica;
+                objBuscado.NomeFantasiaClinica = objAtualizado.NomeFantasiaClinica;
+                objBuscado.RazaoSocialClinica = objAtualizado.RazaoSocialClinica;
+                objBuscado.CnpjClinica = objAtualizado.CnpjClinica;
+                objBuscado.EnderecoClinica = objAtualizado.EnderecoClinica;
+                objBuscado.HorarioFechaClinica = objAtualizado.HorarioFechaClinica;
             }
-            ctx.Clinicas.Update(clinicaBuscada);
+
+            ctx.Clinicas.Update(objBuscado);
             ctx.SaveChanges();
         }
 
-        public Clinica BuscarPorId(int idClinica)
+        public Clinica BuscarPorId(int id)
         {
-            return ctx.Clinicas.FirstOrDefault(c => c.IdClinica == idClinica);
+            return ctx.Clinicas.FirstOrDefault(u => u.IdClinica == id);
         }
 
-        public void Cadastrar(Clinica novaClinica)
+        public void Cadastrar(Clinica objAtualizado)
         {
-            ctx.Clinicas.Add(novaClinica);
+            ctx.Clinicas.Add(objAtualizado);
             ctx.SaveChanges();
         }
 
-        public void Deletar(int idClinica)
+        public void Deletar(int id)
         {
-            Clinica clinicaBuscada = BuscarPorId(idClinica);
-            ctx.Clinicas.Remove(clinicaBuscada);
+            ctx.Clinicas.Remove(ctx.Clinicas.FirstOrDefault(u => u.IdClinica == id));
             ctx.SaveChanges();
         }
 
-        public List<Clinica> Listar()
+        public List<Clinica> ListarTodos()
         {
             return ctx.Clinicas.ToList();
         }
-
-
     }
 }

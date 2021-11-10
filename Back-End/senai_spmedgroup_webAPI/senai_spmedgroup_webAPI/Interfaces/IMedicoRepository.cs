@@ -6,20 +6,27 @@ using System.Threading.Tasks;
 
 namespace senai_spmedgroup_webAPI.Interfaces
 {
-    interface IClinicaRepository
+    interface IMedicoRepository
     {
         /// <summary>
         /// Lista de todos os objetos cadastrados
         /// </summary>
         /// <returns>Uma lista de objetos</returns>
-        List<Clinica> ListarTodos();
+        List<Medico> ListarTodos();
 
         /// <summary>
         /// Busca um objeto com seu respectivo ID
         /// </summary>
         /// <param name="id">ID do objeto</param>
         /// <returns>Retorna um objeto conforme seu ID</returns>
-        Clinica BuscarPorId(int id);
+        Medico BuscarPorId(int id);
+
+        /// <summary>
+        /// Retorna o objeto com respectivo email
+        /// </summary>
+        /// <param name="id">Email do objeto</param>
+        /// <returns>Retorna um objeto com seu respectivo email</returns>
+        Medico BuscarPorEmail(string email);
 
         /// <summary>
         /// Deleta um objeto com seu respectivo ID
@@ -31,12 +38,12 @@ namespace senai_spmedgroup_webAPI.Interfaces
         /// Atualiza um objeto com seu respectivo ID
         /// </summary>
         /// <param name="objAtualizado">Objeto atualizado</param>
-        void Atualizar(int id, Clinica objAtualizado);
+        void Atualizar(int id, Medico objAtualizado);
 
         /// <summary>
         /// Cadastra um novo objeto
         /// </summary>
         /// <param name="objAtualizdo">Novo objeto</param>
-        void Cadastrar(Clinica objAtualizado);
+        void Cadastrar(Medico objAtualizado);
     }
 }

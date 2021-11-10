@@ -10,56 +10,54 @@ namespace senai_spmedgroup_webAPI.Repositories
 {
     public class ConsultumRepository : IConsultumRepository
     {
-        SpMedGroupContex ctx = new SpMedGroupContex();
-
-        public void Atualizar(int idConsulta, Consultum consultaAtualizada)
+        SpMedGroupContext ctx = new SpMedGroupContext();
+        public void Atualizar(int id, Consultum objAtualizado)
         {
-            Consultum consultaBuscada = BuscarPorId(idConsulta);
-
-            if (consultaAtualizada.Situacao != null)
+            Consultum objBuscado = ctx.Consulta.FirstOrDefault(u => u.IdConsulta == id);
+            
+            if (objBuscado.Situacao != null)
             {
-                consultaBuscada.Situacao = consultaBuscada.Situacao;
+                objBuscado.IdMedico = objAtualizado.IdMedico;
+                objBuscado.IdPaciente = objAtualizado.IdPaciente;
+                objBuscado.Situacao = objAtualizado.Situacao;
+                objBuscado.Valor = objAtualizado.Valor;
+                objBuscado.DataConsulta = objAtualizado.DataConsulta;
+                objBuscado.Descricao = objAtualizado.Descricao;
             }
-            ctx.Consulta.Update(consultaBuscada);
+            ctx.Consulta.Update(objBuscado);
             ctx.SaveChanges();
         }
 
-        public void AtualizarDescricao(int idConsulta, Consultum consultaAtualizada)
+        public Consultum BuscarPorId(int id)
         {
-            Consultum consultaBuscada = BuscarPorId(idConsulta);
-
-            if (consultaAtualizada.Descricao == null)
-            {
-                consultaBuscada.Descricao = consultaBuscada.Descricao;
-            }
-            ctx.Consulta.Update(consultaBuscada);
-            ctx.SaveChanges();
+            return ctx.Consulta.FirstOrDefault(u => u.IdConsulta == id);
         }
 
-        public Consultum BuscarPorId(int idConsulta)
+        public void Cadastrar(Consultum objAtualizado)
         {
-            return ctx.Consulta.FirstOrDefault(u => u.IdConsulta == idConsulta);
+                ctx.Consulta.Add(objAtualizado);
+                ctx.SaveChanges();
+        }
+
+        public void Deletar(int id)
+        {
+                ctx.Consulta.Remove(ctx.Consulta.FirstOrDefault(u => u.IdConsulta == id));
+                ctx.SaveChanges();
+        }
+
+        public List<Consultum> ListarPorMed(int id)
+        {
+                return ctx.Consulta.Where(u => u.IdMedico == id).ToList();
+        }
+
+        public List<Consultum> ListarPorPac(int id)
+        {
+                return ctx.Consulta.Where(u => u.IdPaciente == id).ToList();
         }
 
         public List<Consultum> ListarTodos()
         {
-            return ctx.Consulta.ToList();
-        }
-
-        public Consultum BuscarConsultaMed(int idMedico)
-        {
-            return ctx.Consulta.FirstOrDefault(u => u.IdMedico == idMedico);
-        }
-
-        public Consultum BuscarConsultaPac(int idPaciente)
-        {
-            return ctx.Consulta.FirstOrDefault(u => u.IdPaciente == idPaciente);
-        }
-
-        public void Cadastrar(Consultum novaConsulta)
-        {
-            ctx.Consulta.Add(novaConsulta);
-            ctx.SaveChanges();
+                return ctx.Consulta.ToList();
         }
     }
 }
