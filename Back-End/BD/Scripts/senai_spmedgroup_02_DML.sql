@@ -1,4 +1,4 @@
-USE SP_MEDICAL_GROUP
+USE SP_MEDICAL_GROUP_MANHA
 GO
 
 INSERT INTO CLINICA (nomeFantasiaClinica, razaoSocialClinica, enderecoClinica, horarioAbreClinica, horarioFechaClinica, cnpjClinica)
@@ -53,6 +53,11 @@ VALUES ('yurichiba1@gmail.com', 'Yuri Mitsugui Chiba', '24/12/2004', '1134567654
 	   ('dietrich17@gmail.com', 'Laura Barros Villar Dietrich', '23/07/2004', '1176566377', '53254444-1', '91305348010', 'R. Ver. Geraldo de Camargo, 66 - Santa Luzia, Ribeirão Pires - SP, 09405-380'),
 	   ('emanuele.pacheco@outlock.com', 'Emanuele Pacheco da Rocha', '05/03/2003', '11954368769', '54566266-7', '79799299004', 'Alameda dos Arapanés, 945 - Indianópolis, São Paulo - SP, 04524-001'),
 	   ('aymbere.ponzetto@conexaodigital.com', 'Renato Ponzetto Aymbere', '21/03/2007', '13771913039', '54566266-8', '13771913039', 'R Sao Antonio, 232 - Vila Universal, Barueri - SP, 06407-140')
+
+INSERT INTO SITUACAO (situacao)
+VALUES('Realizada'),
+	  ('Cancelada'),
+	  ('Agendada')
 
 INSERT INTO CONSULTA(idMedico, idPaciente, situacao, dataConsulta)
 VALUES (1,1,'Realizada','20/01/2020 15:00'),

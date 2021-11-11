@@ -57,7 +57,7 @@ namespace senai_spmedgroup_webAPI.Controllers
         {
             try
             {
-                UsuarioRepository usuarioBuscado = _Repository.Logar(email, senha);
+                Usuario usuarioBuscado = _Repository.Logar(email, senha);
 
                 if (usuarioBuscado == null)
                 {
@@ -67,7 +67,7 @@ namespace senai_spmedgroup_webAPI.Controllers
                 var minhasClaims = new[]
                 {
                     new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
-                    new Claim(ClaimTypes.Role, usuarioBuscado.TipoUsuario.ToString())
+                    new Claim(ClaimTypes.Role, usuarioBuscado.Sigla.ToString())
                 };
 
                 var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("spmg-chave-autenticacao"));
@@ -98,7 +98,7 @@ namespace senai_spmedgroup_webAPI.Controllers
             /// <returns>Cadastra o objeto solicitado</returns>
             [Authorize(Roles = "ADM")]
             [HttpPost]
-            public IActionResult Cadastrar(UsuarioRepository obj)
+            public IActionResult Cadastrar(Usuario obj)
             {
                 _Repository.Cadastrar(obj);
                 return StatusCode(201);
@@ -110,7 +110,7 @@ namespace senai_spmedgroup_webAPI.Controllers
             /// <returns>Atualiza o objeto solicitado</returns>
             [Authorize(Roles = "ADM")]
             [HttpPut()]
-            public IActionResult Atualizar(UsuarioRepository obj)
+            public IActionResult Atualizar(Usuario obj)
             {
                 _Repository.Atualizar(obj);
                 return StatusCode(204);

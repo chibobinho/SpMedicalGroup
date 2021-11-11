@@ -33,13 +33,13 @@ namespace senai_spmedgroup_webAPI.Interfaces
         /// Deleta um objeto com seu respectivo ID
         /// </summary>
         /// <param name="id">ID do objeto</param>
-        void Deletar(int id);
+        void Deletar(string email);
 
         /// <summary>
-        /// Atualiza um objeto com seu respectivo ID
+        /// Atualiza o objeto com seu respectivo ID
         /// </summary>
         /// <param name="objAtualizado">Objeto atualizado</param>
-        void Atualizar(int id, Usuario objAtualizado);
+        void Atualizar(Usuario objAtualizado);
 
         /// <summary>
         /// Cadastra um novo objeto

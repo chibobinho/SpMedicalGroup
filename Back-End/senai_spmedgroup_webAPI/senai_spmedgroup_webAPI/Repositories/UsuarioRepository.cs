@@ -11,7 +11,7 @@ namespace senai_spmedgroup_webAPI.Repositories
     public class UsuarioRepository : IUsuarioRepository
     {
         SpMedGroupContext ctx = new SpMedGroupContext();
-        public void Atualizar(int id, Usuario objAtualizado)
+        public void Atualizar(Usuario objAtualizado)
         {
             Usuario objBuscado = ctx.Usuarios.FirstOrDefault(u => u.Email == objAtualizado.Email);
 
@@ -38,7 +38,7 @@ namespace senai_spmedgroup_webAPI.Repositories
             ctx.SaveChanges();
         }
 
-        public void Deletar(int id)
+        public void Deletar(string email)
         {
             ctx.Usuarios.Remove(ctx.Usuarios.FirstOrDefault(u => u.Email == email));
             ctx.SaveChanges();
