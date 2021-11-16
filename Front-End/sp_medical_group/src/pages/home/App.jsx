@@ -10,6 +10,7 @@ export default class Home extends Component {
     redirecionarPara = (path) => {
         this.props.history.push(path.target.name)
     }
+
     efetuarLogout = () => {
         localStorage.removeItem('usuario-login')
         this.props.history.push('/login')
@@ -17,24 +18,48 @@ export default class Home extends Component {
 
     render() {
         return (
-            <body>
+            <div>
                 <header class="container">
-                    <img src={logo} alt="Imagem_logo" />
-                    <button>Login</button>
+                    <img src={logo} alt="Logo SPMedicalGroup" />
+                    <nav>
+                        <a name="/" onClick={this.redirecionarPara}>Home</a>
+                        {
+                            //console.log(parseJwt()),
+                            usuarioAutenticado() ?
+                                parseJwt().role === 'ADM' ?
+                                    <a name="/consultas" onClick={this.redirecionarPara} >Consultas</a> :
+
+                                    parseJwt().role === 'MED' ?
+                                        <a name="/consultas-medico" onClick={this.redirecionarPara} >Consultas</a> :
+
+                                        parseJwt().role === 'PAC' ?
+                                            <a name="/consultas-paciente" onClick={this.redirecionarPara} >Consultas</a> :
+
+                                            null : null
+
+                        }
+
+                        {
+                            usuarioAutenticado()
+                                ? <button id="deslogar" name="/login" onClick={this.efetuarLogout} >Desconectar</button>
+                                : <button id="logar" name="/login" onClick={this.redirecionarPara} >Conectar</button>
+
+                        }
+                    </nav>
                 </header>
-                <main>
-                    <div class="centralizar">
-                        <img src={centro} alt="Imagem_centro" />
-                        <p>A melhor clínica de São Paulo</p>
+
+                <main class="banner-home">
+                    <div>
+                        <img src={logo} alt="Logo SPMedicalGroup" />
+                        <hr />
+                        <span>Um nível superior de atendimento.</span>
                     </div>
                 </main>
+
                 <footer>
-                    <p>SP MEDICAL GROUP</p>
+                    <p>Escola Senai De Informática - 2021</p>
                 </footer>
-            </body>
-        );
+            </div >
+        )
     }
 }
-
-
-

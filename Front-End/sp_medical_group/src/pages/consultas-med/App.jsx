@@ -3,6 +3,7 @@ import axios from "axios";
 import { parseJwt, usuarioAutenticado } from '../../services/auth/auth.js';
 
 import logo from '../../assets/Imagem_logo.png';
+import calendario from '../../assets/Imagem_calendario.png'
 import seta1 from '../../assets/Imagem_seta_1.png';
 import seta2 from '../../assets/Imagem_seta_2.png';
 
@@ -12,8 +13,9 @@ export default class Consultas extends Component {
         super(props)
         this.state = {
             listaConsultas: [],
-            navAtual: 0,
-            navLength: 0,
+
+            // navAtual: 0,
+            // navLength: 0,
 
             descricao: '',
             consultaDescricao: {
@@ -35,22 +37,22 @@ export default class Consultas extends Component {
         this.props.history.push('/login')
     }
 
-    // Desenvolvimento...
-    mudarNavPage = async (event) => {
-        await this.setState({
-            navAtual: parseInt(event.target.value)
-        })
-        // console.log(this.state.navAtual)
-    }
+    /// Em Desenvolvimento - NavPage
+    //  
+    // mudarNavPage = async (event) => {
+    //     await this.setState({
+    //         navAtual: parseInt(event.target.value)
+    //     })
+    //     // console.log(this.state.navAtual)
+    // }
 
-    // Desenvolvimento...
-    calcularNavPage() {
-        this.setState({
-            // navLength: Math.ceil((this.state.listaConsultas.length / 6))
-            navLength: 5
-        })
-        // console.log(this.state.navLength)
-    }
+    // calcularNavPage() {
+    //     this.setState({
+    //         // navLength: Math.ceil((this.state.listaConsultas.length / 6))
+    //         navLength: 5
+    //     })
+    //     // console.log(this.state.navLength)
+    // }
 
     async listarConsultasMedico() {
         await axios('http://localhost:5000/api/Consultas/med/' + parseJwt().email, {
@@ -67,7 +69,7 @@ export default class Consultas extends Component {
 
             .catch(erro => console.log(erro))
 
-        this.calcularNavPage()
+        // this.calcularNavPage()
 
     }
 
@@ -133,130 +135,116 @@ export default class Consultas extends Component {
         this.listarConsultasMedico();
     }
 
+    render() {
 
-render() {
-    return (
-        <body>
-            <header class="container">
-                <img src={logo} alt="Imagem_logo" />
-            </header>
-            <main>
-                <div class="titulo centralizar">
-                    <p>Consultas</p>
-                    <hr class="linha" />
-                </div>
-                <section class="container centralizar_2">
-                    <section class="bloco_1">
-                        <div class="alinhar">
-                            <div class="circulo"></div>
-                            <div>
-                                <h2>Dr. Saulo Santos</h2>
-                                <p>Saulo Lucas Aragão Santos</p>
-                            </div>
-                            <div>
-                                <h2>17:00</h2>
-                                <p>17/10/2021</p>
-                            </div>
-                        </div>
+        // let navPage = []
 
-                        <div class="alinhar">
-                            <div class="circulo"></div>
-                            <div>
-                                <h2>Dr. Saulo Santos</h2>
-                                <p>Saulo Lucas Aragão Santos</p>
-                            </div>
-                            <div>
-                                <h2>17:00</h2>
-                                <p>17/10/2021</p>
-                            </div>
-                        </div>
+        // for (let i = 0; i < this.state.navLength; i++) {
+        //     navPage.push(i + 1)
+        // }
 
-                        <div class="alinhar">
-                            <div class="circulo"></div>
-                            <div>
-                                <h2>Dr. Saulo Santos</h2>
-                                <p>Saulo Lucas Aragão Santos</p>
-                            </div>
-                            <div>
-                                <h2>17:00</h2>
-                                <p>17/10/2021</p>
-                            </div>
-                        </div>
+        return (
+            <div>
+                <header className="container">
+                    <img src={logo} alt="Logo SPMedicalGroup" />
+                    <nav>
+                        <a name="/" onClick={this.redirecionarPara}>Home</a>
+                        {
+                            usuarioAutenticado() ?
+                                parseJwt().role === 'ADM' ?
+                                    <a name="/consultas" onClick={this.redirecionarPara} >Consultas</a> :
 
-                        <div class="alinhar">
-                            <div class="circulo"></div>
-                            <div>
-                                <h2>Dr. Saulo Santos</h2>
-                                <p>Saulo Lucas Aragão Santos</p>
-                            </div>
-                            <div>
-                                <h2>17:00</h2>
-                                <p>17/10/2021</p>
-                            </div>
-                        </div>
+                                    parseJwt().role === 'MED' ?
+                                        <a name="/consultas-medico" onClick={this.redirecionarPara} >Consultas</a> :
 
-                        <div class="alinhar">
-                            <div class="circulo"></div>
-                            <div>
-                                <h2>Dr. Saulo Santos</h2>
-                                <p>Saulo Lucas Aragão Santos</p>
-                            </div>
-                            <div>
-                                <h2>17:00</h2>
-                                <p>17/10/2021</p>
-                            </div>
-                        </div>
+                                        parseJwt().role === 'PAC' ?
+                                            <a name="/consultas-paciente" onClick={this.redirecionarPara} >Consultas</a> :
 
-                        <div class="alinhar">
-                            <div class="circulo"></div>
-                            <div>
-                                <h2>Dr. Saulo Santos</h2>
-                                <p>Saulo Lucas Aragão Santos</p>
-                            </div>
-                            <div>
-                                <h2>17:00</h2>
-                                <p>17/10/2021</p>
-                            </div>
-                        </div>
+                                            null : null
 
-                        <section class="alinhar_2">
-                            <img src={seta1} alt="Imagem_seta_1" />
-                            <div class="quadrado">
-                                <p>1</p>
-                            </div>
-                            <div class="quadrado">
-                                <p>2</p>
-                            </div>
-                            <div class="quadrado">
-                                <p>3</p>
-                            </div>
-                            <div class="quadrado">
-                                <p>4</p>
-                            </div>
-                            <div class="quadrado">
-                                <p>5</p>
-                            </div>
-                            <img src={seta2} alt="Imagem_seta_2" />
+                        }
+
+                        {
+                            usuarioAutenticado()
+                                ? <button id="deslogar" name="/login" onClick={this.efetuarLogout} >Desconectar</button>
+                                : <button id="logar" name="/login" onClick={this.redirecionarPara} >Conectar</button>
+
+                        }
+                    </nav>
+                </header>
+
+                <main className="main-consultas container">
+                    <h1>Consultas</h1>
+                    <hr />
+                    <div className="consultas-section">
+                        <section className="listar">
+                            {
+                                this.state.listaConsultas.map(x => {
+                                    return (
+                                        <article>
+                                            <div className="nomes-consulta">
+                                                <img src={calendario} alt="" />
+                                                <div className="nomes-div">
+                                                    <p>Dr. {x.idMedicoNavigation.nome}</p>
+                                                    <span>{x.idPacienteNavigation.nome}</span>
+                                                </div>
+                                            </div>
+
+                                            <button value={x.idConsulta} onClick={this.obterConsulta}>Editar descrição</button>
+
+
+                                            <div className="hora-consulta">
+                                                <p>{Intl.DateTimeFormat("pt-BR", {
+                                                    hour: 'numeric', minute: 'numeric'
+                                                }).format(new Date(x.dataConsulta))}</p>
+
+                                                <span>{Intl.DateTimeFormat("pt-BR", {
+                                                    year: 'numeric', month: 'numeric', day: 'numeric',
+                                                }).format(new Date(x.dataConsulta))}</span>
+                                            </div>
+                                        </article>
+                                    )
+                                })
+                            }
+
                         </section>
-                    </section>
-                    <section class="bloco_2">
-                        <div class="titulo centralizar">
-                            <p>Cadastro</p>
-                            <hr class="linha" />
-                        </div>
-                        <div class="alinhar_botoes">
-                            <input class="pequeno" type="Select" placeholder="Selecione a consulta" />
-                            <input class="grande" type="text" placeholder="Descrição" />
-                            <button>Inserir</button>
-                        </div>
 
-                    </section>
-                </section>
-            </main>
-            <footer>
-                <p>SP MEDICAL GROUP</p>
-            </footer>
-        </body>
-    );
-}
+                        <section className="cadastrar">
+                            <h2>Editar descrição</h2>
+                            <hr />
+                            {
+                                this.state.consultaDescricao.idConsulta == null ?
+                                    <article>Consulta não selecionada</article>
+                                    :
+                                    <article>
+                                        <div className="nomes-consulta">
+                                            <img src={calendario} alt="" />
+                                            <div className="nomes-div">
+                                                <p>Dr. {this.obterMedico(this.state.consultaDescricao.idMedico)}</p>
+                                                <span>Pedro Paulo Pereira Pontes</span>
+                                            </div>
+                                        </div>
+
+                                        <button>Editar descrição</button>
+                                        <div className="hora-consulta">
+                                            <p>{this.state.consultaDescricao.dataConsulta.split('T')[1]}</p>
+                                            <span>{this.state.consultaDescricao.dataConsulta.split('T')[0]}</span>
+                                        </div>
+                                    </article>
+                            }
+
+                            <hr />
+                            <form onSubmit={this.cadastrarConsulta}>
+                                <textarea name="" id="" cols="30" rows="10"></textarea>
+
+                                <button className="submit-cadastrar" type="submit">Cadastrar</button>
+                            </form>
+                        </section>
+
+                    </div>
+
+                </main>
+            </div>
+        )
+    }
 }

@@ -44,27 +44,40 @@ export default class Login extends Component {
 
   render() {
     return (
-      <main>
-        <div class="alinhamento">
-          <div class="bloco_1">
-            <img src={login} alt="Imagem_login" />
-          </div>
+      <div>
+        <main className="flex">
 
-          <div class="bloco_2">
-            <div class="distanciamento">
-              <img src={logo} alt="Imagem_logo" />
-              <input type="text" />
-              <input type="text" />
-              <div class="senha">
-                <p>Esqueceu sua senha? </p>
-                <img src={chave} alt="Imagem_chave" />
+          <div className="banner-login" src="../assets/banner-login.png" alt="Banner"></div>
+
+          <div className="caixa-login">
+            <img src={logo} alt="Logo SP Medical Group" />
+
+            <form onSubmit={this.efetuaLogin}>
+              <div className="form-login">
+                <input
+                  type="text"
+                  placeholder="Email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.atualizaStateCampo}
+                />
+
+                <input type="text" placeholder="Senha" name="senha" value={this.state.senha} onChange={this.atualizaStateCampo} />
+                <a href="http://localhost:3000/">Esqueceu a senha?</a>
+                {
+                  this.state.isLoading === true &&
+                  <button type="submit" disabled>Loading...</button>
+                }
+                {
+                  this.state.isLoading === false &&
+                  <button type="submit">Login</button>
+                }
+                <p style={{ color: 'red' }} >{this.state.erroMensagem}</p>
               </div>
-            </div>
-
-            <button>Login</button>
+            </form>
           </div>
-        </div>
-      </main>
+        </main>
+      </div >
     );
   }
 }
