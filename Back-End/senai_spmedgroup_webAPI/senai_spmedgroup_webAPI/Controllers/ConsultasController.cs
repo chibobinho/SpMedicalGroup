@@ -49,7 +49,7 @@ namespace senai_spmedgroup_webAPI.Controllers
         /// Lê as consultas para esse médico
         /// </summary>
         /// <returns>Lista de todos os objetos</returns>
-        [Authorize(Roles = "ADM")]
+        [Authorize(Roles = "PAC")]
         [HttpGet("pac/{email}")]
         public IActionResult LerPac(string email)
         {
@@ -61,7 +61,7 @@ namespace senai_spmedgroup_webAPI.Controllers
         /// Busca objeto atráves do ID
         /// </summary>
         /// <returns>Lista apenas o objeto selecionado</returns>
-        [Authorize(Roles = "ADM")]
+        [Authorize(Roles = "ADM,MED")]
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
@@ -84,13 +84,11 @@ namespace senai_spmedgroup_webAPI.Controllers
         /// Atualiza a descrição da descrição
         /// </summary>
         /// <param name="obj">Objeto consulta com respectivo id</param>
-        /// <param name="descricao">Nova descrição</param>
         /// <returns></returns>
         [Authorize(Roles = "MED")]
-        [HttpPut("{id}")]
-        public IActionResult AtualizarDescricao(Consultum obj, string descricao)
+        [HttpPut()]
+        public IActionResult AtualizarDescricao(Consultum obj)
         {
-            obj.Descricao = descricao;
             _Repository.Atualizar(obj.IdConsulta, obj);
             return StatusCode(204);
         }

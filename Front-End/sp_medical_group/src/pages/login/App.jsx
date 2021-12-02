@@ -1,16 +1,17 @@
 import { Component } from "react";
 import axios from "axios";
 
-import login from '../../assets/Imagem_login.png';
-import logo from '../../assets/Imagem_logo.png';
-import chave from '../../assets/Imagem_chave.png';
+import logo from '../../assets/logo-login.png';
+import logo_spmed from "../../assets/Imagem_logo.png"
+import chave from "../../assets/Imagem_chave.png"
 
 export default class Login extends Component {
+  
   constructor(props) {
     super(props)
     this.state = {
-      email: 'yurichiba1@gmail.com',
-      senha: '444',
+      email: '',
+      senha: '',
       erroMensagem: '',
       isLoading: false
     }
@@ -18,53 +19,82 @@ export default class Login extends Component {
 
   efetuaLogin = (event) => {
     event.preventDefault();
+
     this.setState({ erroMensagem: '', isLoading: true });
-    axios.post('http//localhost:5000/api/login', {
+
+
+    axios.post('http://localhost:5000/api/login', {
       email: this.state.email,
       senha: this.state.senha
     })
 
       .then(resposta => {
         if (resposta.status == 200) {
+
           localStorage.setItem('usuario-login', resposta.data.token);
+
           this.setState({ isLoading: false });
-          console.log("Login realizado")
+
+          console.log("Login efetuado!")
           this.props.history.push('/');
+
         }
       })
       .catch(() => {
+        // define o valor do state erroMensagem com uma mensagem personalizada
         this.setState({ erroMensagem: 'E-mail e/ou senha inválidos!', isLoading: false })
       })
+
   }
 
   atualizaStateCampo = (campo) => {
     this.setState({ [campo.target.name]: campo.target.value })
-    console.log(`${this.state.email} + ${this.state.senha}`)
   };
 
   render() {
     return (
-      <main>
-        <div class="alinhamento">
-          <div class="bloco_1">
-            <img src={login} alt="Imagem_login" />
-          </div>
+      <div>
+        <main className="flex">
+          <div className="banner-login" src="../assets/Imagem_banner_login.jpg" alt="Banner"></div>
 
-          <div class="bloco_2">
-            <div class="distanciamento">
-              <img src={logo} alt="Imagem_logo" />
-              <input type="text" />
-              <input type="text" />
-              <div class="senha">
-                <p>Esqueceu sua senha? </p>
-                <img src={chave} alt="Imagem_chave" />
+          <div className="caixa-login">
+            <img src={logo_spmed} alt="Logo SP Medical Group" />
+
+            <form onSubmit={this.efetuaLogin}>
+              <div className="form-login">
+                <input
+                  type="text"
+                  placeholder="Email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.atualizaStateCampo}
+                />
+
+                <input type="text" placeholder="Senha" name="senha" value={this.state.senha} onChange={this.atualizaStateCampo} />
+
+                <div className="form-senha">
+                <a href="http://localhost:3000/">Esqueceu a senha?</a>
+                <img src={chave} alt="chave" />
+                </div>
+
+                {
+                  this.state.isLoading === true &&
+                  <button type="submit" disabled>Loading...</button>
+                }
+
+                {
+                  this.state.isLoading === false &&
+                  <button type="submit">Login</button>
+                }
+
+                <p style={{ color: 'red' }} >{this.state.erroMensagem}</p>
               </div>
-            </div>
+            </form>
 
-            <button>Login</button>
           </div>
-        </div>
-      </main>
-    );
+
+        </main>
+      </div >
+    )
   }
 }

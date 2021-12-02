@@ -36,7 +36,7 @@ namespace senai_spmedgroup_webAPI.Interfaces
         /// <summary>
         /// Cadastra um novo objeto
         /// </summary>
-        /// <param name="objAtualizdo">Novo objeto</param>
+        /// <param name="objAtualizado">Novo objeto</param>
         void Cadastrar(Clinica objAtualizado);
     }
 }

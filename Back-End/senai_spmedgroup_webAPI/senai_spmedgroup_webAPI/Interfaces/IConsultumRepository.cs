@@ -44,13 +44,14 @@ namespace senai_spmedgroup_webAPI.Interfaces
         /// <summary>
         /// Atualiza um objeto com seu respectivo ID
         /// </summary>
+        /// <param name="id">ID</param>
         /// <param name="objAtualizado">Objeto atualizado</param>
         void Atualizar(int id, Consultum objAtualizado);
 
         /// <summary>
         /// Cadastra um novo objeto
         /// </summary>
-        /// <param name="objAtualizdo">Novo objeto</param>
+        /// <param name="objAtualizado">Novo objeto</param>
         void Cadastrar(Consultum objAtualizado);
     }
 }

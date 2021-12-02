@@ -13,7 +13,7 @@ namespace senai_spmedgroup_webAPI.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "ADM")]
+    [Authorize(Roles = "ADM,MED,PAC")]
     public class MedicosController : ControllerBase
     {
         private IMedicoRepository _Repository { get; set; }

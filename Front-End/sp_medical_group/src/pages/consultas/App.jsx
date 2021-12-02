@@ -1,10 +1,11 @@
 import { React, Component } from 'react';
+import { useState, useEffect } from 'react';
 import axios from "axios";
-import { parseJwt, usuarioAutenticado } from '../../services/auth/auth.js';
-
-import logo from '../../assets/Imagem_logo.png';
-import seta1 from '../../assets/Imagem_seta_1.png';
-import seta2 from '../../assets/Imagem_seta_2.png';
+import { parseJwt, usuarioAutenticado } from '../../services/auth/auth';
+import logo from "../../assets/logo.png"
+import calendario from "../../assets/calendar.png"
+import seta from "../../assets/arrow.png"
+import CadastrarConsultas from '../../component/cadastrar';
 
 class ListarConsultas extends Component {
 
@@ -12,24 +13,27 @@ class ListarConsultas extends Component {
         super(props)
         this.state = {
             listaConsultas: [],
-            navAtual: 0,
-            navLength: 0,
+            //navAtual: 0,
+            //navLength: 0,
         }
     }
-    mudarNavPage = async (event) => {
-        await this.setState({
-            navAtual: parseInt(event.target.value)
-        })
-        // console.log(this.state.navAtual)
-    }
 
-    calcularNavPage() {
-        this.setState({
-            // navLength: Math.ceil((this.state.listaConsultas.length / 6))
-            navLength: 5
-        })
-        // console.log(this.state.navLength)
-    }
+    /// Em Desenvolvimento - NavPage
+    //
+    // mudarNavPage = async (event) => {
+    //     await this.setState({
+    //         navAtual: parseInt(event.target.value)
+    //     })
+    //     console.log(this.state.navAtual)
+    // }
+
+    // calcularNavPage() {
+    //     this.setState({
+    //         // navLength: Math.ceil((this.state.listaConsultas.length / 6))
+    //         navLength: 5
+    //     })
+    //     // console.log(this.state.navLength)
+    // }
 
 
     async listarConsultas() {
@@ -47,29 +51,8 @@ class ListarConsultas extends Component {
 
             .catch(erro => console.log(erro))
 
-        this.calcularNavPage()
+        // this.calcularNavPage()
 
-    }
-
-    obterMedico(id) {
-        axios(`http://localhost:5000/api/Medicos/${id}`, {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('usuario-login'),
-            },
-        })
-            .catch(erro => console.log(erro))
-
-            .then(resposta => {
-                if (resposta.status == 200) {
-
-                    // console.log('\nMédico:')
-                    // console.log(resposta)
-                    // console.log(resposta.data)
-                    // console.log(resposta.data.nome)
-
-                    return resposta.data
-                };
-            })
     }
 
     componentDidMount() {
@@ -77,131 +60,122 @@ class ListarConsultas extends Component {
     }
 
     render() {
+
+        // console.log('teste')
+        // console.log(this.obterMedico(1))
+
+        let navPage = []
+
+        for (let i = 0; i < this.state.navLength; i++) {
+            navPage.push(i + 1)
+        }
+
         return (
-            <body>
-                <header class="container">
-                    <img src={logo} alt="Imagem_logo" />
+            <section className="listar">
+                <div>
+                    {
+                        this.state.listaConsultas.map(x => {
+                            return (
+                                <article>
+                                    <div className="nomes-consulta">
+                                        <img src={calendario} alt="" />
+                                        <div className="nomes-div">
+                                            <p>Dr. {x.idMedicoNavigation.nome}</p>
+                                            <span>{x.idPacienteNavigation.nome}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="hora-consulta">
+                                        <p>{Intl.DateTimeFormat("pt-BR", {
+                                            hour: 'numeric', minute: 'numeric'
+                                        }).format(new Date(x.dataConsulta))}</p>
+
+                                        <span>{Intl.DateTimeFormat("pt-BR", {
+                                            year: 'numeric', month: 'numeric', day: 'numeric',
+                                        }).format(new Date(x.dataConsulta))}</span>
+                                    </div>
+                                </article>
+                            )
+                        })
+                    }
+                </div>
+
+                {/* <nav>
+                        <img src={seta} alt="" />
+                        {
+                            navPage.map(x => {
+                                return (
+                                    <button className="nav-page" value={x} onClick={this.mudarNavPage} >{x}</button>
+                                )
+                            })
+                        }
+                        <img id="last-arrow" src={seta} alt="" />
+                    </nav> */}
+
+            </section>
+        )
+    }
+}
+
+export default class Consultas extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            listaConsultas: [],
+        }
+    }
+
+    redirecionarPara = (path) => {
+        this.props.history.push(path.target.name)
+    }
+
+    efetuarLogout = () => {
+        localStorage.removeItem('usuario-login')
+        this.props.history.push('/login')
+    }
+
+    render() {
+        return (
+            <div>
+                <header className="container">
+                    <img src={logo} alt="Logo SPMedicalGroup" />
+                    <nav>
+                        <a name="/" onClick={this.redirecionarPara}>Home</a>
+                        {
+                            usuarioAutenticado() ?
+                                parseJwt().role === 'ADM' ?
+                                    <a name="/consultas" onClick={this.redirecionarPara} >Consultas</a> :
+
+                                    parseJwt().role === 'MED' ?
+                                        <a name="/consultas-medico" onClick={this.redirecionarPara} >Consultas</a> :
+
+                                        parseJwt().role === 'PAC' ?
+                                            <a name="/consultas-paciente" onClick={this.redirecionarPara} >Consultas</a> :
+
+                                            null : null
+
+                        }
+
+                        {
+                            usuarioAutenticado()
+                                ? <button id="deslogar" name="/login" onClick={this.efetuarLogout} >Desconectar</button>
+                                : <button id="logar" name="/login" onClick={this.redirecionarPara} >Conectar</button>
+
+                        }
+                    </nav>
                 </header>
-                <main>
-                    <div class="titulo centralizar">
-                        <p>Consultas</p>
-                        <hr class="linha" />
+
+                <main className="main-consultas container">
+                    <h1>Consultas</h1>
+                    <hr />
+                    <div className="consultas-section">
+                        <ListarConsultas />
+                        <CadastrarConsultas />
                     </div>
-                    <section class="container centralizar_2">
-                        <section class="bloco_1">
-                            <div class="alinhar">
-                                <div class="circulo"></div>
-                                <div>
-                                    <h2>Dr. Saulo Santos</h2>
-                                    <p>Saulo Lucas Aragão Santos</p>
-                                </div>
-                                <div>
-                                    <h2>17:00</h2>
-                                    <p>17/10/2021</p>
-                                </div>
-                            </div>
 
-                            <div class="alinhar">
-                                <div class="circulo"></div>
-                                <div>
-                                    <h2>Dr. Saulo Santos</h2>
-                                    <p>Saulo Lucas Aragão Santos</p>
-                                </div>
-                                <div>
-                                    <h2>17:00</h2>
-                                    <p>17/10/2021</p>
-                                </div>
-                            </div>
-
-                            <div class="alinhar">
-                                <div class="circulo"></div>
-                                <div>
-                                    <h2>Dr. Saulo Santos</h2>
-                                    <p>Saulo Lucas Aragão Santos</p>
-                                </div>
-                                <div>
-                                    <h2>17:00</h2>
-                                    <p>17/10/2021</p>
-                                </div>
-                            </div>
-
-                            <div class="alinhar">
-                                <div class="circulo"></div>
-                                <div>
-                                    <h2>Dr. Saulo Santos</h2>
-                                    <p>Saulo Lucas Aragão Santos</p>
-                                </div>
-                                <div>
-                                    <h2>17:00</h2>
-                                    <p>17/10/2021</p>
-                                </div>
-                            </div>
-
-                            <div class="alinhar">
-                                <div class="circulo"></div>
-                                <div>
-                                    <h2>Dr. Saulo Santos</h2>
-                                    <p>Saulo Lucas Aragão Santos</p>
-                                </div>
-                                <div>
-                                    <h2>17:00</h2>
-                                    <p>17/10/2021</p>
-                                </div>
-                            </div>
-
-                            <div class="alinhar">
-                                <div class="circulo"></div>
-                                <div>
-                                    <h2>Dr. Saulo Santos</h2>
-                                    <p>Saulo Lucas Aragão Santos</p>
-                                </div>
-                                <div>
-                                    <h2>17:00</h2>
-                                    <p>17/10/2021</p>
-                                </div>
-                            </div>
-
-                            <section class="alinhar_2">
-                                <img src={seta1} alt="Imagem_seta_1" />
-                                <div class="quadrado">
-                                    <p>1</p>
-                                </div>
-                                <div class="quadrado">
-                                    <p>2</p>
-                                </div>
-                                <div class="quadrado">
-                                    <p>3</p>
-                                </div>
-                                <div class="quadrado">
-                                    <p>4</p>
-                                </div>
-                                <div class="quadrado">
-                                    <p>5</p>
-                                </div>
-                                <img src={seta2} alt="Imagem_seta_2" />
-                            </section>
-                        </section>
-                        <section class="bloco_2">
-                            <div class="titulo centralizar">
-                                <p>Cadastro</p>
-                                <hr class="linha" />
-                            </div>
-                            <div class="alinhar_botoes">
-                                <input type="text" placeholder="Médico" />
-                                <input type="text" placeholder="Paciente" />
-                                <input type="text" placeholder="Situação" />
-                                <input type="text" placeholder="Valor" />
-                                <input type="date" placeholder="Data" />
-                                <button>Cadastrar</button>
-                            </div>
-
-                        </section>
-                    </section>
                 </main>
-                <footer>
-                    <p>SP MEDICAL GROUP</p>
-                </footer>
-            </body>
-        );
+            </div>
+        )
     }
 }

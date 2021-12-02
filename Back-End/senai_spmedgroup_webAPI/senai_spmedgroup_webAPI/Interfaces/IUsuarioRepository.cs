@@ -17,7 +17,7 @@ namespace senai_spmedgroup_webAPI.Interfaces
         /// <summary>
         /// Retorna o objeto com respectivo email
         /// </summary>
-        /// <param name="id">Email do objeto</param>
+        /// <param name="email">Email do objeto</param>
         /// <returns>Retorna um objeto com seu respectivo email</returns>
         Usuario BuscarPorEmail(string email);
 
@@ -32,7 +32,7 @@ namespace senai_spmedgroup_webAPI.Interfaces
         /// <summary>
         /// Deleta um objeto com seu respectivo ID
         /// </summary>
-        /// <param name="id">ID do objeto</param>
+        /// <param name="email">ID do objeto</param>
         void Deletar(string email);
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace senai_spmedgroup_webAPI.Interfaces
         /// <summary>
         /// Cadastra um novo objeto
         /// </summary>
-        /// <param name="objAtualizdo">Novo objeto</param>
+        /// <param name="objAtualizado">Novo objeto</param>
         void Cadastrar(Usuario objAtualizado);
     }
 }

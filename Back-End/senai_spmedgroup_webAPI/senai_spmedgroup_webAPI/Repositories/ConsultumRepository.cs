@@ -1,4 +1,5 @@
-﻿using senai_spmedgroup_webAPI.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using senai_spmedgroup_webAPI.Contexts;
 using senai_spmedgroup_webAPI.Domains;
 using senai_spmedgroup_webAPI.Interfaces;
 using System;
@@ -30,7 +31,7 @@ namespace senai_spmedgroup_webAPI.Repositories
 
         public Consultum BuscarPorId(int id)
         {
-            return ctx.Consulta.FirstOrDefault(u => u.IdConsulta == id);
+            return ctx.Consulta.Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).FirstOrDefault(u => u.IdConsulta == id);
         }
 
         public void Cadastrar(Consultum objAtualizado)
@@ -47,17 +48,17 @@ namespace senai_spmedgroup_webAPI.Repositories
 
         public List<Consultum> ListarPorMed(int id)
         {
-                return ctx.Consulta.Where(u => u.IdMedico == id).ToList();
+            return ctx.Consulta.Where(u => u.IdMedico == id).Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).ToList();
         }
 
         public List<Consultum> ListarPorPac(int id)
         {
-                return ctx.Consulta.Where(u => u.IdPaciente == id).ToList();
+            return ctx.Consulta.Where(u => u.IdPaciente == id).Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).ToList();
         }
 
         public List<Consultum> ListarTodos()
         {
-                return ctx.Consulta.ToList();
+            return ctx.Consulta.Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).ToList();
         }
     }
 }
