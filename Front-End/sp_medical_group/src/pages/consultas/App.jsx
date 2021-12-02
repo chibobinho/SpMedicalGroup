@@ -1,11 +1,20 @@
 import { React, Component } from 'react';
 import { useState, useEffect } from 'react';
 import axios from "axios";
+<<<<<<< HEAD
 import { parseJwt, usuarioAutenticado } from '../../services/auth/auth';
 import logo from "../../assets/logo.png"
 import calendario from "../../assets/calendar.png"
 import seta from "../../assets/arrow.png"
 import CadastrarConsultas from '../../component/cadastrar';
+=======
+import { parseJwt, usuarioAutenticado } from '../../services/auth/auth.js';
+
+import logo from '../../assets/Imagem_logo.png';
+import calendario from '../../assets/Imagem_calendario.png'
+import seta1 from '../../assets/Imagem_seta_1.png';
+import seta2 from '../../assets/Imagem_seta_2.png';
+>>>>>>> 5e325ff8ca215cda859232e37595028b7c096fa4
 
 class ListarConsultas extends Component {
 

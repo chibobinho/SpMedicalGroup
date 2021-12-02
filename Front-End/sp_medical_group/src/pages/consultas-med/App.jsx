@@ -1,9 +1,18 @@
 import { React, Component } from 'react';
 import axios from "axios";
+<<<<<<< HEAD
 import { parseJwt, usuarioAutenticado } from '../../services/auth/auth';
 import logo from "../../assets/logo.png"
 import calendario from "../../assets/calendar.png"
 import seta from "../../assets/arrow.png"
+=======
+import { parseJwt, usuarioAutenticado } from '../../services/auth/auth.js';
+
+import logo from '../../assets/Imagem_logo.png';
+import calendario from '../../assets/Imagem_calendario.png'
+import seta1 from '../../assets/Imagem_seta_1.png';
+import seta2 from '../../assets/Imagem_seta_2.png';
+>>>>>>> 5e325ff8ca215cda859232e37595028b7c096fa4
 
 export default class Consultas extends Component {
 
@@ -11,6 +20,12 @@ export default class Consultas extends Component {
         super(props)
         this.state = {
             listaConsultas: [],
+<<<<<<< HEAD
+=======
+
+            // navAtual: 0,
+            // navLength: 0,
+>>>>>>> 5e325ff8ca215cda859232e37595028b7c096fa4
 
             // navAtual: 0,
             // navLength: 0,
@@ -198,6 +213,7 @@ export default class Consultas extends Component {
                         <section className="cadastrar">
                             <h2>Editar descrição</h2>
                             <hr />
+<<<<<<< HEAD
 
                             <article>
                                 {this.state.nome}
@@ -206,6 +222,32 @@ export default class Consultas extends Component {
                             <hr />
                             <form onSubmit={this.editarDescricao}>
                                 <textarea name="descricao" id="" cols="30" rows="10" value={this.state.descricao} onChange={this.atualizaStateCampo}></textarea>
+=======
+                            {
+                                this.state.consultaDescricao.idConsulta == null ?
+                                    <article>Consulta não selecionada</article>
+                                    :
+                                    <article>
+                                        <div className="nomes-consulta">
+                                            <img src={calendario} alt="" />
+                                            <div className="nomes-div">
+                                                <p>Dr. {this.obterMedico(this.state.consultaDescricao.idMedico)}</p>
+                                                <span>Pedro Paulo Pereira Pontes</span>
+                                            </div>
+                                        </div>
+
+                                        <button>Editar descrição</button>
+                                        <div className="hora-consulta">
+                                            <p>{this.state.consultaDescricao.dataConsulta.split('T')[1]}</p>
+                                            <span>{this.state.consultaDescricao.dataConsulta.split('T')[0]}</span>
+                                        </div>
+                                    </article>
+                            }
+
+                            <hr />
+                            <form onSubmit={this.cadastrarConsulta}>
+                                <textarea name="" id="" cols="30" rows="10"></textarea>
+>>>>>>> 5e325ff8ca215cda859232e37595028b7c096fa4
 
                                 <button className="submit-cadastrar" type="submit">Cadastrar</button>
                             </form>

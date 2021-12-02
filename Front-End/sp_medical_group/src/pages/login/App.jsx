@@ -55,6 +55,7 @@ export default class Login extends Component {
     return (
       <div>
         <main className="flex">
+<<<<<<< HEAD
           <div className="banner-login" src="../assets/Imagem_banner_login.jpg" alt="Banner"></div>
 
           <div className="caixa-login">
@@ -96,5 +97,40 @@ export default class Login extends Component {
         </main>
       </div >
     )
+=======
+
+          <div className="banner-login" src="../assets/banner-login.png" alt="Banner"></div>
+
+          <div className="caixa-login">
+            <img src={logo} alt="Logo SP Medical Group" />
+
+            <form onSubmit={this.efetuaLogin}>
+              <div className="form-login">
+                <input
+                  type="text"
+                  placeholder="Email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.atualizaStateCampo}
+                />
+
+                <input type="text" placeholder="Senha" name="senha" value={this.state.senha} onChange={this.atualizaStateCampo} />
+                <a href="http://localhost:3000/">Esqueceu a senha?</a>
+                {
+                  this.state.isLoading === true &&
+                  <button type="submit" disabled>Loading...</button>
+                }
+                {
+                  this.state.isLoading === false &&
+                  <button type="submit">Login</button>
+                }
+                <p style={{ color: 'red' }} >{this.state.erroMensagem}</p>
+              </div>
+            </form>
+          </div>
+        </main>
+      </div >
+    );
+>>>>>>> 5e325ff8ca215cda859232e37595028b7c096fa4
   }
 }
