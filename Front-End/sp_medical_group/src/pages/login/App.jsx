@@ -6,7 +6,7 @@ import logo_spmed from "../../assets/Imagem_logo.png"
 import chave from "../../assets/Imagem_chave.png"
 
 export default class Login extends Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -37,12 +37,15 @@ export default class Login extends Component {
 
           console.log("Login efetuado!")
           this.props.history.push('/');
-
+          
+        }
+        else {
+          this.setState({ erroMensagem: 'E-mail e/ou senha inválidos!', isLoading: false })
         }
       })
       .catch(() => {
         // define o valor do state erroMensagem com uma mensagem personalizada
-        this.setState({ erroMensagem: 'E-mail e/ou senha inválidos!', isLoading: false })
+        //this.setState({ erroMensagem: 'E-mail e/ou senha inválidos!', isLoading: false })
       })
 
   }
@@ -55,7 +58,6 @@ export default class Login extends Component {
     return (
       <div>
         <main className="flex">
-<<<<<<< HEAD
           <div className="banner-login" src="../assets/Imagem_banner_login.jpg" alt="Banner"></div>
 
           <div className="caixa-login">
@@ -74,8 +76,8 @@ export default class Login extends Component {
                 <input type="text" placeholder="Senha" name="senha" value={this.state.senha} onChange={this.atualizaStateCampo} />
 
                 <div className="form-senha">
-                <a href="http://localhost:3000/">Esqueceu a senha?</a>
-                <img src={chave} alt="chave" />
+                  <a href="http://localhost:3000/">Esqueceu a senha?</a>
+                  <img src={chave} alt="chave" />
                 </div>
 
                 {
@@ -97,40 +99,5 @@ export default class Login extends Component {
         </main>
       </div >
     )
-=======
-
-          <div className="banner-login" src="../assets/banner-login.png" alt="Banner"></div>
-
-          <div className="caixa-login">
-            <img src={logo} alt="Logo SP Medical Group" />
-
-            <form onSubmit={this.efetuaLogin}>
-              <div className="form-login">
-                <input
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.atualizaStateCampo}
-                />
-
-                <input type="text" placeholder="Senha" name="senha" value={this.state.senha} onChange={this.atualizaStateCampo} />
-                <a href="http://localhost:3000/">Esqueceu a senha?</a>
-                {
-                  this.state.isLoading === true &&
-                  <button type="submit" disabled>Loading...</button>
-                }
-                {
-                  this.state.isLoading === false &&
-                  <button type="submit">Login</button>
-                }
-                <p style={{ color: 'red' }} >{this.state.erroMensagem}</p>
-              </div>
-            </form>
-          </div>
-        </main>
-      </div >
-    );
->>>>>>> 5e325ff8ca215cda859232e37595028b7c096fa4
   }
 }

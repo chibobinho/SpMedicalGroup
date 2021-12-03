@@ -29,7 +29,7 @@ export default class CadastrarConsultas extends Component {
                 if (resposta.status == 200) {
                     this.setState({ listaMedicos: resposta.data })
                 };
-                //console.log(this.state.listaMedicos)
+                console.log(this.state.listaMedicos)
             })
 
             .catch(erro => console.log(erro))
@@ -106,7 +106,7 @@ export default class CadastrarConsultas extends Component {
                         {
                             this.state.listaMedicos.map(m => {
                                 return (
-                                    <option key={m.idMedico} value={m.idMedico}>{m.nome}</option>
+                                    <option key={m.idMedico} value={m.idMedico}>{m.nomeMed}</option>
                                 )
                             })
                         }
@@ -118,7 +118,7 @@ export default class CadastrarConsultas extends Component {
                         {
                             this.state.listaPacientes.map(p => {
                                 return (
-                                    <option key={p.idPaciente} value={p.idPaciente}>{p.nome}</option>
+                                    <option key={p.idPaciente} value={p.idPaciente}>{p.nomePac}</option>
                                 )
                             })
                         }

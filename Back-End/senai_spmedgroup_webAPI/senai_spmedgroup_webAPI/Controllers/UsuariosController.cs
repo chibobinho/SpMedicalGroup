@@ -48,50 +48,6 @@ namespace senai_spmedgroup_webAPI.Controllers
             return Ok(_Repository.BuscarPorEmail(email));
         }
 
-        /// <summary>
-        /// Busca objeto atráves do ID
-        /// </summary>
-        /// <returns>Lista apenas o objeto selecionado</returns>
-        [HttpPost("Login")]
-        public IActionResult Login(string email, string senha)
-        {
-            try
-            {
-                Usuario usuarioBuscado = _Repository.Logar(email, senha);
-
-                if (usuarioBuscado == null)
-                {
-                    return BadRequest("E-mail ou senha inválidos!");
-                }
-
-                var minhasClaims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
-                    new Claim(ClaimTypes.Role, usuarioBuscado.Sigla.ToString())
-                };
-
-                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("spmg-chave-autenticacao"));
-
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                var meuToken = new JwtSecurityToken(
-                        issuer: "spMedGroup.webAPI",
-                        audience: "spMedGroup.webAPI",
-                        claims: minhasClaims,
-                        expires: DateTime.Now.AddHours(8),
-                        signingCredentials: creds
-                        );
-
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(meuToken)
-                });         
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
             /// <summary>
             /// Cadastra um objeto
             /// </summary>

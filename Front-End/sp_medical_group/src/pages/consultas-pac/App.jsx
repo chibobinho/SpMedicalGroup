@@ -1,18 +1,10 @@
 import { React, Component } from 'react';
 import axios from "axios";
-<<<<<<< HEAD
 import { parseJwt, usuarioAutenticado } from '../../services/auth/auth';
 import logo from "../../assets/logo.png"
 import calendario from "../../assets/calendar.png"
+import circulo from "../../assets/circulo.png"
 import seta from "../../assets/arrow.png"
-=======
-import { parseJwt, usuarioAutenticado } from '../../services/auth/auth.js';
-
-import logo from '../../assets/Imagem_logo.png';
-import calendario from '../../assets/Imagem_calendario.png'
-import seta1 from '../../assets/Imagem_seta_1.png';
-import seta2 from '../../assets/Imagem_seta_2.png';
->>>>>>> 5e325ff8ca215cda859232e37595028b7c096fa4
 
 export default class Consultas extends Component {
 
@@ -123,10 +115,10 @@ export default class Consultas extends Component {
                                     return (
                                         <article>
                                             <div className="nomes-consulta">
-                                                <img src={calendario} alt="" />
+                                                <img src={circulo} alt="" />
                                                 <div className="nomes-div">
-                                                    <p>Dr. Ainda Sem Nome</p>
-                                                    <span>Paciente Atrasado(No Sistema)</span>
+                                                <p>Dr. {x.idMedicoNavigation.nomeMed}</p>
+                                                    <span>{x.idPacienteNavigation.nomePac}</span>
                                                 </div>
                                             </div>
 
@@ -138,14 +130,6 @@ export default class Consultas extends Component {
                                     )
                                 })
                             }
-
-
-<<<<<<< HEAD
-                           
-=======
-
->>>>>>> 5e325ff8ca215cda859232e37595028b7c096fa4
-
                             {/* {
                                 //this.state.navPage.largura > 1 ?
                                 <nav>
