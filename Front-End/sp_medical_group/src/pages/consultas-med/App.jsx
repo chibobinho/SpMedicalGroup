@@ -175,7 +175,7 @@ export default class Consultas extends Component {
                             <form onSubmit={this.editarDescricao}>
                                 <textarea name="descricao" id="" cols="30" rows="10" value={this.state.descricao} onChange={this.atualizaStateCampo}></textarea>
 
-                                <button className="submit-cadastrar" type="submit">Cadastrar</button>
+                                <button className="submit-cadastrar" type="submit">Inserir</button>
                             </form>
                         </section>
                     </div>

@@ -191,6 +191,12 @@ footer {
     width: 100%;
 }
 
+.consultas-section-pac {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .consultas-section section {
     display: flex;
     flex-direction: column;

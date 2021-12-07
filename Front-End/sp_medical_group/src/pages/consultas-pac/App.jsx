@@ -81,7 +81,7 @@ export default class Consultas extends Component {
                 <main className="main-consultas container">
                     <h1>Consultas</h1>
                     <hr />
-                    <div className="consultas-section">
+                    <div className="consultas-section consultas-section-pac">
 
                         <section className="listar">
                             {
