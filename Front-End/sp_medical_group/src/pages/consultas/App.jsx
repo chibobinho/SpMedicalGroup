@@ -1,11 +1,8 @@
 import { React, Component } from 'react';
-import { useState, useEffect } from 'react';
 import axios from "axios";
 import { parseJwt, usuarioAutenticado } from '../../services/auth/auth';
-import logo from "../../assets/logo.png"
-import calendario from "../../assets/calendar.png"
-import seta from "../../assets/arrow.png"
 import CadastrarConsultas from '../../component/cadastrar';
+
 import logo_spmed from "../../assets/Imagem_logo.png"
 import circulo from "../../assets/circulo.png"
 
@@ -16,28 +13,8 @@ class ListarConsultas extends Component {
         super(props)
         this.state = {
             listaConsultas: [],
-            //navAtual: 0,
-            //navLength: 0,
         }
     }
-
-    /// Em Desenvolvimento - NavPage
-    //
-    // mudarNavPage = async (event) => {
-    //     await this.setState({
-    //         navAtual: parseInt(event.target.value)
-    //     })
-    //     console.log(this.state.navAtual)
-    // }
-
-    // calcularNavPage() {
-    //     this.setState({
-    //         // navLength: Math.ceil((this.state.listaConsultas.length / 6))
-    //         navLength: 5
-    //     })
-    //     // console.log(this.state.navLength)
-    // }
-
 
     async listarConsultas() {
         await axios('http://localhost:5000/api/Consultas', {
@@ -49,13 +26,8 @@ class ListarConsultas extends Component {
                 if (resposta.status == 200) {
                     this.setState({ listaConsultas: resposta.data })
                 };
-                //console.log(this.state.listaConsultas)
             })
-
             .catch(erro => console.log(erro))
-
-        // this.calcularNavPage()
-
     }
 
     componentDidMount() {
@@ -63,10 +35,6 @@ class ListarConsultas extends Component {
     }
 
     render() {
-
-        // console.log('teste')
-        // console.log(this.obterMedico(1))
-
         let navPage = []
 
         for (let i = 0; i < this.state.navLength; i++) {
@@ -102,18 +70,6 @@ class ListarConsultas extends Component {
                         })
                     }
                 </div>
-
-                {/* <nav>
-                        <img src={seta} alt="" />
-                        {
-                            navPage.map(x => {
-                                return (
-                                    <button className="nav-page" value={x} onClick={this.mudarNavPage} >{x}</button>
-                                )
-                            })
-                        }
-                        <img id="last-arrow" src={seta} alt="" />
-                    </nav> */}
 
             </section>
         )

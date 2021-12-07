@@ -1,11 +1,10 @@
 import { React, Component } from 'react';
 import axios from "axios";
 import { parseJwt, usuarioAutenticado } from '../../services/auth/auth';
-import logo from "../../assets/logo.png"
+
 import logo_spmed from "../../assets/Imagem_logo.png"
-import calendario from "../../assets/calendar.png"
 import circulo from "../../assets/circulo.png"
-import seta from "../../assets/arrow.png"
+
 
 export default class Consultas extends Component {
 
@@ -13,10 +12,6 @@ export default class Consultas extends Component {
         super(props)
         this.state = {
             listaConsultas: [],
-
-            // navAtual: 0,
-            // navLength: 0,
-
             consulta: [],
             nome: '?',
             descricao: '',
@@ -33,23 +28,6 @@ export default class Consultas extends Component {
         this.props.history.push('/login')
     }
 
-    /// Em Desenvolvimento - NavPage
-    //  
-    // mudarNavPage = async (event) => {
-    //     await this.setState({
-    //         navAtual: parseInt(event.target.value)
-    //     })
-    //     // console.log(this.state.navAtual)
-    // }
-
-    // calcularNavPage() {
-    //     this.setState({
-    //         // navLength: Math.ceil((this.state.listaConsultas.length / 6))
-    //         navLength: 5
-    //     })
-    //     // console.log(this.state.navLength)
-    // }
-
     async listarConsultasMedico() {
         await axios('http://localhost:5000/api/Consultas/med/' + parseJwt().email, {
             headers: {
@@ -60,13 +38,9 @@ export default class Consultas extends Component {
                 if (resposta.status == 200) {
                     this.setState({ listaConsultas: resposta.data })
                 };
-                //console.log(this.state.listaConsultas)
             })
 
             .catch(erro => console.log(erro))
-
-        // this.calcularNavPage()
-
     }
 
     obterConsulta = (event) => {
@@ -83,7 +57,6 @@ export default class Consultas extends Component {
                         nome: resposta.data.idPacienteNavigation.nomePac,
                         descricao: resposta.data.descricao
                     })
-                    // console.log(this.state)
                 };
             })
 
@@ -124,13 +97,6 @@ export default class Consultas extends Component {
     }
 
     render() {
-
-        // let navPage = []
-
-        // for (let i = 0; i < this.state.navLength; i++) {
-        //     navPage.push(i + 1)
-        // }
-
         return (
             <div>
                 <header className="container">
@@ -212,9 +178,7 @@ export default class Consultas extends Component {
                                 <button className="submit-cadastrar" type="submit">Cadastrar</button>
                             </form>
                         </section>
-
                     </div>
-
                 </main>
             </div>
         )

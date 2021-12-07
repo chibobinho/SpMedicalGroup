@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { parseJwt, usuarioAutenticado } from '../../services/auth/auth';
-import { Link } from 'react-router-dom';
 
 import logo_spmed from "../../assets/Imagem_logo.png"
 import logo_spmed1 from "../../assets/logo_spmed.png"
@@ -24,7 +23,6 @@ export default class Home extends Component {
                     <nav>
                         <a name="/" onClick={this.redirecionarPara}>Home</a>
                         {
-                            //console.log(parseJwt()),
                             usuarioAutenticado() ?
                             parseJwt().role === 'ADM' ?
                             <a name="/consultas" onClick={this.redirecionarPara} >Consultas</a> :
@@ -36,7 +34,6 @@ export default class Home extends Component {
                             <a name="/consultas-paciente" onClick={this.redirecionarPara} >Consultas</a> :
 
                             null : null
-
                         }
 
                         {

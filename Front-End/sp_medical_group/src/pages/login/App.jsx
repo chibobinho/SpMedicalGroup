@@ -1,7 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
 
-import logo from '../../assets/logo-login.png';
 import logo_spmed from "../../assets/Imagem_logo.png"
 import chave from "../../assets/Imagem_chave.png"
 
@@ -44,8 +43,6 @@ export default class Login extends Component {
         }
       })
       .catch(() => {
-        // define o valor do state erroMensagem com uma mensagem personalizada
-        //this.setState({ erroMensagem: 'E-mail e/ou senha inválidos!', isLoading: false })
       })
 
   }

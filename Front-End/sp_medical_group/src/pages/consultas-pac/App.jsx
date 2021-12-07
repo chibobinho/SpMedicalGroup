@@ -1,10 +1,9 @@
 import { React, Component } from 'react';
 import axios from "axios";
 import { parseJwt, usuarioAutenticado } from '../../services/auth/auth';
-import logo from "../../assets/logo.png"
-import calendario from "../../assets/calendar.png"
+
+import logo_spmed from "../../assets/Imagem_logo.png"
 import circulo from "../../assets/circulo.png"
-import seta from "../../assets/arrow.png"
 
 export default class Consultas extends Component {
 
@@ -12,8 +11,7 @@ export default class Consultas extends Component {
         super(props)
         this.state = {
             listaConsultas: [],
-            // navAtual: 0,
-            // navLength: 0,
+
         }
     }
 
@@ -26,23 +24,6 @@ export default class Consultas extends Component {
         this.props.history.push('/login')
     }
 
-    /// Em Desenvolvimento - NavPage
-    //  
-    // mudarNavPage = async (event) => {
-    //     await this.setState({
-    //         navAtual: parseInt(event.target.value)
-    //     })
-    //     // console.log(this.state.navAtual)
-    // }
-
-    // calcularNavPage() {
-    //     this.setState({
-    //         // navLength: Math.ceil((this.state.listaConsultas.length / 6))
-    //         navLength: 5
-    //     })
-    //     // console.log(this.state.navLength)
-    // }
-
     async listarConsultasPaciente() {
         await axios('http://localhost:5000/api/Consultas/pac/' + parseJwt().email, {
             headers: {
@@ -53,13 +34,9 @@ export default class Consultas extends Component {
                 if (resposta.status == 200) {
                     this.setState({ listaConsultas: resposta.data })
                 };
-                //console.log(this.state.listaConsultas)
             })
 
             .catch(erro => console.log(erro))
-
-        // this.calcularNavPage()
-
     }
 
     componentDidMount() {
@@ -77,7 +54,7 @@ export default class Consultas extends Component {
         return (
             <div>
                 <header className="container">
-                    <img src={logo} alt="Logo SPMedicalGroup" />
+                    <img src={logo_spmed} alt="Logo SPMedicalGroup" />
                     <nav>
                         <a name="/" onClick={this.redirecionarPara}>Home</a>
                         {
@@ -90,11 +67,8 @@ export default class Consultas extends Component {
 
                                         parseJwt().role === 'PAC' ?
                                             <a name="/consultas-paciente" onClick={this.redirecionarPara} >Consultas</a> :
-
                                             null : null
-
                         }
-
                         {
                             usuarioAutenticado()
                                 ? <button id="deslogar" name="/login" onClick={this.efetuarLogout} >Desconectar</button>
@@ -117,7 +91,7 @@ export default class Consultas extends Component {
                                             <div className="nomes-consulta">
                                                 <img src={circulo} alt="" />
                                                 <div className="nomes-div">
-                                                <p>Dr. {x.idMedicoNavigation.nomeMed}</p>
+                                                    <p>Dr. {x.idMedicoNavigation.nomeMed}</p>
                                                     <span>{x.idPacienteNavigation.nomePac}</span>
                                                 </div>
                                             </div>
@@ -130,26 +104,8 @@ export default class Consultas extends Component {
                                     )
                                 })
                             }
-                            {/* {
-                                //this.state.navPage.largura > 1 ?
-                                <nav>
-                                    <img src={seta} alt="" />
-                                    {
-                                        navPage.map(x => {
-                                            return (
-                                                <button className="nav-page" value={x} onClick={this.mudarNavPage} >{x}</button>
-                                            )
-                                        })
-                                    }
-                                    <img id="last-arrow" src={seta} alt="" />
-                                </nav>
-                                //: null
-                            } */}
-
                         </section>
-
                     </div>
-
                 </main>
             </div>
         )
