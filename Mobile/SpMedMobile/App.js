@@ -1,50 +1,97 @@
-import 'react-native-gesture-handler';
+import axios from 'axios';
+import React, { Component } from 'react';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
-import React, {Component} from 'react';
-
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-
-import {StatusBar, StyleSheet} from 'react-native';
-
-import Main from './src/screens/main';
-import Login from './src/screens/login';
-import CameraPerfil from './src/screens/camera';
-
-const AuthStack = createStackNavigator();
+import api from './src/services/api';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listaConsultas: []
+    };
+  };
+
+  buscarConsultas = async () => {
+    const resposta = await api.get('/consultas');
+    const dadosDaApi = resposta.data;
+    this.setState({ listaConsultas: dadosDaApi });
+  }
+
+  componentDidMount() {
+    this.buscarConsultas();
+  }
+
   render() {
     return (
-      <NavigationContainer>
-        <StatusBar
-          hidden={true}
-        />
-        <AuthStack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}>
-          <AuthStack.Screen name="Login" component={Login} />
-          <AuthStack.Screen name="Main" component={Main} />
-          <AuthStack.Screen name="Camera" component={CameraPerfil} />
-        </AuthStack.Navigator>
-      </NavigationContainer>
+      <View style={styles.main}>
+
+        <View style={styles.mainHeader}>
+          <View style={styles.mainHeaderRow}>
+            <Image
+              source={require('./src/assets/img/Imagem_logo.png')}
+              style={styles.mainHeaderRowImg}
+            />
+            <Text style={styles.mainHeaderText}>{"Consultas".toUpperCase()}</Text>
+          </View>
+          <View style={styles.mainHeaderLine} />
+        </View>
+
+        <View style={styles.mainBody}>
+          <FlatList
+            contentContainerStyle={styles.mainBodyContent}
+            data={this.state.listaConsultas}
+            keyExtractor={ item => item.idConsulta }
+            renderItem={ this.renderItem}
+          />
+        </View>
+
+      </View>
     );
   }
-}
+
+  renderItem =({ item }) => (
+    // <Text style={{fontSize: 20, color: 'red' }}>{item.idConsulta}</Text>
+    <View style={styles.flatItemRow}>
+      <View style={styles.flatItemContainer}>
+        <Text>{item.idMedico}</Text>
+        <Text>{item.idPaciente}</Text>
+        <Text>{item.dataConsulta}</Text>
+        <Text>-----------------------------------------</Text>
+      </View>
+      <View style={styles.flatItemImg}>
+
+      </View>
+    </View>
+  )
+};
 
 const styles = StyleSheet.create({
-  // conteúdo da main
   main: {
     flex: 1,
-    backgroundColor: '#F1F1F1',
+    backgroundColor: 'fff',
   },
 
-  // estilo dos ícones da tabBar
-  tabBarIcon: {
-    width: 22,
-    height: 22,
+  mainHeader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
+
+  mainHeaderRow:{
+    flexDirection: 'row'
+  },
+
+  mainHeaderRowImg: {
+    width: 22,
+    height: 22
+  }
 });
 
 export default App;

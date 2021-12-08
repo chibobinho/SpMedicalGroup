@@ -26,7 +26,7 @@ namespace senai_spmedgroup_webAPI.Controllers
         /// Lê os objetos cadastrados
         /// </summary>
         /// <returns>Lista de todos os objetos</returns>
-        [Authorize(Roles = "ADM")]
+        /// [Authorize(Roles = "ADM")]
         [HttpGet]
         public IActionResult LerTudo()
         {
