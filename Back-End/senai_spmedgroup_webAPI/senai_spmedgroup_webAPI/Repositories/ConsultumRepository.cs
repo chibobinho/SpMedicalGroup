@@ -48,17 +48,17 @@ namespace senai_spmedgroup_webAPI.Repositories
 
         public List<Consultum> ListarPorMed(int id)
         {
-            return ctx.Consulta.Where(u => u.IdMedico == id).Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).ToList();
+            return ctx.Consulta.Where(u => u.IdMedico == id).Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation).ToList();
         }
 
         public List<Consultum> ListarPorPac(int id)
         {
-            return ctx.Consulta.Where(u => u.IdPaciente == id).Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).ToList();
+            return ctx.Consulta.Where(u => u.IdPaciente == id).Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation).ToList();
         }
 
         public List<Consultum> ListarTodos()
         {
-            return ctx.Consulta.Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).ToList();
+            return ctx.Consulta.Include(c => c.IdMedicoNavigation).Include(c => c.IdPacienteNavigation).Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation).ToList();
         }
     }
 }
