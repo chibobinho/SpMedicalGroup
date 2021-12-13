@@ -5,6 +5,7 @@ import {
     StatusBar,
     StyleSheet,
     Text,
+    Image,
     ImageBackground,
     TextInput,
     TouchableOpacity,
@@ -20,8 +21,8 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: 'roberto.possarle@spmedicalgroup.com.br',
-            senha: '1234',
+            email: 'aymbere.ponzetto@conexaodigital.com',
+            senha: '100',
         };
     }
 
@@ -46,12 +47,9 @@ export default class Login extends Component {
 
     render() {
         return (
-            <ImageBackground
-                source={require('../../assets/img/bg-login.png')}
-                style={styles.bgLogin}
+            <View style={styles.Login}
             >
-                <Text style={styles.title}>Login</Text>
-
+                <Image style={styles.ImagemLogin} source={require('../../assets/img/Imagem_centro.png')} />
                 <TextInput
                     style={styles.inputLogin}
                     placeholder="username"
@@ -60,16 +58,6 @@ export default class Login extends Component {
                     onChangeText={email => this.setState({ email })}
                     value={this.state.email}
                 />
-
-                <View
-                    style={{
-                        borderBottomColor: '#FFF',
-                        borderBottomWidth: 1,
-                        marginBottom: 10,
-                        marginTop: 10,
-                    }}
-                />
-
 
                 <TextInput
                     style={styles.inputLogin}
@@ -81,60 +69,54 @@ export default class Login extends Component {
                     value={this.state.senha}
                 />
 
-                <View
-                    style={{
-                        borderBottomColor: '#FFF',
-                        borderBottomWidth: 1,
-                        marginBottom: 10,
-                        marginTop: 10,
-                    }}
-                />
-
                 <TouchableOpacity
                     style={styles.btnLogin}
                     onPress={this.realizarLogin}>
-                    <Text style={styles.btnLoginText}>Próximo</Text>
+                    <Text style={styles.btnLoginText}>Login</Text>
                 </TouchableOpacity>
-            </ImageBackground>
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    bgLogin: {
+    
+
+    Login: {
         flex: 1,
         padding: 40,
         justifyContent: 'center',
-    },
-
-    title: {
-        marginBottom: 20,
-        fontFamily: 'SourceCodePro-Bold',
-        fontSize: 48,
-        color: '#FFFFFF',
+        alignItems: 'center',
+        backgroundColor: '#4DC0E0'
     },
 
     inputLogin: {
-        fontFamily: 'SourceCodePro-Regular',
+        width: 241,
+        paddingTop: 50,
+        fontFamily: 'Roboto-mono',
         fontSize: 24,
         color: '#FFFFFF',
+        borderStyle: 'solid',
+        borderBottomWidth: 3,
+        borderColor: '#FFFFFF',
+        borderBottomColor: '#FFFFFF'
     },
 
     btnLogin: {
-        borderWidth: 3,
         borderColor: '#FFFFFF',
-        borderRadius: 30,
-        width: 300,
+        borderWidth: 3,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 5,
+        width: 241,
         height: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 96,
+        marginTop: 56,
     },
 
     btnLoginText: {
-        fontFamily: 'SourceCodePro-Regular',
+        fontFamily: 'Roboto-mono',
         fontSize: 24,
-        color: '#FFFFFF',
-
+        color: '#4DC0E0',
     }
 });

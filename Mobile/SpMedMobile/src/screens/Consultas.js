@@ -151,14 +151,7 @@ export default class Consultas extends Component {
 
     render() {
         return (
-            <ImageBackground
-                source={require('../../assets/img/bg-main.png')}
-                style={styles.bgMain}
-            >
-                <Image
-                    source={require('../../assets/img/back.png')}
-                    style={styles.icon}
-                />
+            <View style={styles.consultas}>
 
                 <Text style={styles.titleConsultas}>Consultas</Text>
 
@@ -169,24 +162,23 @@ export default class Consultas extends Component {
                     renderItem={this.renderItem}
                 />
 
-            </ImageBackground>
+            </View>
         )
     }
+
+    ///falta arrumar a listagem da especialidade
 
     renderItem = ({ item }) => (
         <View style={styles.consulta}>
             <View style={styles.nomes}>
-                <Text style={styles.nomeMed}>Dr. {item.idMedicoNavigation.nome}</Text>
-                <Text style={styles.nomePac}>{item.idPacienteNavigation.nome} ● {item.idMedicoNavigation.idEspecialidadeNavigation.nomeEspecialidade}</Text>
+                <Text style={styles.nomeMed}>Dr. {item.idMedicoNavigation.nomeMed}</Text>
+                <Text style={styles.nomePac}>{item.idPacienteNavigation.nomePac} {item.idMedicoNavigation.idEspecialidadeNavigation.idEspecialidade}</Text> 
             </View>
 
             <View style={styles.preco}>
-
-                {this.situacaoImg(item.situacao)}
-
+                <Text style={styles.situacaoStyle}>{item.situacao}</Text>
                 <Text style={styles.valor}>
-                    <Text style={styles.valorCifra}>
-                        R$</Text >{item.valor}
+                    <Text style={styles.valorCifra}>R$</Text >{item.valor}
                 </Text>
             </View>
 
@@ -199,43 +191,38 @@ export default class Consultas extends Component {
 }
 
 const styles = StyleSheet.create({
-    bgMain: {
+    consultas: {
         flex: 1,
         alignItems: 'center',
-    },
-
-    icon: {
-        position: 'absolute',
-        top: 34,
-        left: 25,
-        height: 30,
+        backgroundColor: '#4DC0E0'
     },
 
     titleConsultas: {
         marginTop: 28,
-        marginBottom: 50,
+        marginBottom: 10,
         fontFamily: 'SourceCodePro-Bold',
         fontSize: 32,
         color: '#FFFFFF'
     },
 
     listaConsultas: {
-        height: 450,
+        height: 500,
     },
 
     consulta: {
+        padding: 5,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: 310,
-        borderBottomWidth: 2,
+        width: 350,
+        borderBottomWidth: 3,
         borderBottomColor: '#FFFFFF',
-        height: 45,
-        marginBottom: 20,
+        height: 60,
+        marginBottom: 10,
     },
 
     nomes: {
-        width: 180,
+        width: 200,
     },
 
     nomeMed: {
@@ -248,18 +235,22 @@ const styles = StyleSheet.create({
     nomePac: {
         fontFamily: 'SourceCodePro-Regular',
         height: 15,
-        fontSize: 11,
+        fontSize: 10,
         color: '#FFFFFF'
     },
 
     preco: {
-        alignItems: 'center',
+        alignItems: 'flex-end',
+    },
+
+    situacaoStyle: {
+        color: '#FFFFFF',
     },
 
     situacao: {
         height: 25,
         width: 25,
-        marginBottom: -2,
+        marginTop: 2,
     },
 
     valor: {
@@ -288,7 +279,7 @@ const styles = StyleSheet.create({
     },
 
     data: {
-        fontFamily: 'Souliyo-Regular',
+        fontFamily: 'SourceCodePro-Regular',
         fontSize: 11,
         color: '#FFFFFF',
         marginTop: 0

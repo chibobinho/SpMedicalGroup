@@ -30,7 +30,7 @@ export default class Main extends Component {
                                 if (route.name === 'Perfil') {
                                     return (
                                         <Image
-                                            source={require('../../assets/img/person-outline.png')}
+                                            source={require('../../assets/img/retrato-de-modo.png')}
                                             style={styles.tabBarIcon}
                                         />
                                     )
@@ -38,7 +38,7 @@ export default class Main extends Component {
                                 if (route.name === 'Consultas') {
                                     return (
                                         <Image
-                                            source={require('../../assets/img/list-outline.png')}
+                                            source={require('../../assets/img/verificacao-de-lista.png')}
                                             style={styles.tabBarIcon}
                                         />
                                     )
@@ -47,8 +47,8 @@ export default class Main extends Component {
 
                             headerShown: false,
                             tabBarShowLabel: false,
-                            tabBarActiveBackgroundColor: '#222d3d',
-                            tabBarInactiveBackgroundColor: '#222d3d',
+                            tabBarActiveBackgroundColor: '#488EF7',
+                            tabBarInactiveBackgroundColor: '#000000',
                             tabBarStyle: {
                                 height: 60,
                                 borderTopWidth: 0,

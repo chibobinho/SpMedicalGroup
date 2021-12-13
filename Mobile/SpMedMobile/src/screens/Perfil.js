@@ -27,7 +27,6 @@ export default class Perfil extends Component {
 
     buscarDadosPerfil = async () => {
         const valorToken = await AsyncStorage.getItem('userToken')
-        // console.warn(jwtDecode(valorToken))
 
         if (valorToken != null) {
             this.setState({ email: jwtDecode(valorToken).email });
@@ -55,43 +54,43 @@ export default class Perfil extends Component {
 
     render() {
         return (
-            <ImageBackground
-                source={require('../../assets/img/bg-main.png')}
-                style={styles.bgMain}
-            >
-                <Image style={styles.perfilImg} source={require('../../assets/img/profile.png')} />
+            <View style={styles.Perfil}>
+                
+                <Image style={styles.perfilImg} source={require('../../assets/img/retrato-de-modo.png')} />
 
                 <View style={styles.perfilInfo}>
 
                     <Text style={styles.username}>{this.state.username}</Text>
                     <Text style={styles.role}>{this.tipoUsuario(this.state.role)}</Text>
                     <View style={styles.emailBox}>
-                        <Image
-                            source={require('../../assets/img/mail.png')}
-                            style={styles.mailIcon}
-                        />
+                        <Image source={require('../../assets/img/envelope.png')}style={styles.emailIcon}/>
                         <Text style={styles.email}>{this.state.email}</Text>
                     </View>
 
                 </View>
 
-            </ImageBackground>
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    bgMain: {
+    Perfil: {
         flex: 1,
         alignItems: 'center',
+        backgroundColor: '#4DC0E0'
     },
 
     perfilInfo: {
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'space-between',
+        height: 200,
     },
 
     perfilImg: {
+        width: 100,
+        height: 100,
         marginTop: 40,
     },
 
@@ -111,15 +110,19 @@ const styles = StyleSheet.create({
     email: {
         color: '#FFFFFF',
         fontFamily: 'SourceCodePro-Bold',
-        fontSize: 12,
+        fontSize: 16,
     },
 
-    mailIcon: {
-        marginRight: 5,
+    emailIcon: {
+        width: 30,
+        height: 30,
+        marginRight: 10,
     },
 
     emailBox: {
-        flexDirection: 'row',
+        height: 100,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
         alignItems: 'center',
     }
 });
